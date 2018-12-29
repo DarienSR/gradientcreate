@@ -1,0 +1,143 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.dropdown-menu {
+    background-color: rgba(192, 29, 29, 0.767);   
+    width: 200px;
+    border-bottom: 4px solid rgb(134, 26, 26);
+    border-right: 4px solid rgb(134, 26, 26);
+    border-left: 4px solid rgb(134, 26, 26);
+}
+
+.dropdown-menu .show {
+    padding: 0;
+    margin: 0;
+}
+
+#codeDropdown {
+    width: 550px;
+} 
+
+#navbarScheme {
+    background-color: rgb(134, 26, 26);
+}
+
+#navbarScheme a {
+    color: rgb(255, 255, 255);
+}
+
+.fa-cog {
+    color: rgb(255, 255, 255);
+}
+
+.fa-code {
+    color: white;
+}
+
+#display {
+    min-height: 100%;
+    margin: 0;
+    background: linear-gradient(to bottom, #bc7357, #e27f72);
+    align-items: center;  /*Aligns vertically center */
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+#next, #back {
+    font-size: 4rem;
+    padding: 1.5rem;
+    background-color: rgba(134, 26, 26, 0.171);
+    transition: 0.75s;
+    position: relative;
+    bottom: 50px;
+
+}
+
+#next:hover, #back:hover {
+    background-color: rgb(134, 26, 26);  
+}
+
+.fa-chevron-circle-right, .fa-chevron-circle-left {
+    color: rgb(255, 255, 255);
+}
+
+#colorWrapperOne, #colorWrapperTwo, #colorWrapperThree {
+    height: 32px;
+    width: 32px;
+    border: 2px solid white;
+    background-color: #000000;
+    border-radius: 50%;
+}
+
+.circle {
+    margin: 0 auto;
+    height: 32px;
+    width: 32px;
+    border: 2px solid white;
+    background-color: #000000;
+    border-radius: 50%;
+}
+
+#colorOne, #colorTwo, #colorThree {
+    visibility: hidden;
+}
+
+#myInput {
+    margin: 0 auto;
+    width: 50px;
+}
+
+#updateDisplay {
+    margin: 0 auto;
+    width: 80%;
+    color: black;
+    background-color: rgba(134, 26, 26, 0.171); 
+    border: 1px solid black;
+}
+
+#updateDisplay:hover {
+    background-color: rgb(134, 26, 26);
+}
+
+#inputOne, #inputTwo, #inputThree {
+    background-color: rgba(134, 26, 26, 0);  
+    border: none;
+    width: 40px;
+}
+
+.slash {
+    position: relative;
+    bottom: 40px;
+    font-size: 2rem;
+    color: white;
+}
+
+#direction, #numOfColors, #myInput {
+    background-color: rgba(201, 31, 31, 0);  
+    border: none;
+}
+
+#myInput {
+    border-bottom: 2px solid black;
+    color: black;
+}
+
+.idInput {
+    width: 100%;
+    border: none;
+    background-color: rgba(192, 29, 29, 0);   
+}
+
+input:focus {outline: none; }
+
+.inputCopy {
+    position: relative;
+    right: 30px;
+    border: none;
+    background-color: rgba(192, 29, 29, 0);   
+}
