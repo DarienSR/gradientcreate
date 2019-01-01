@@ -8,6 +8,36 @@ $('#code').on('click', '.dropdown-menu', function (e) {
     e.stopPropagation();
 });
 
+
+function tempAlert(msg,duration,id) {
+    var parent = document.getElementById(id)
+    var el = document.createElement("span");
+    el.setAttribute("style","position:relative;bottom:15px;");
+    el.innerHTML = msg;
+
+    setTimeout(function(){
+        el.parentNode.removeChild(el);
+    }, duration);
+
+    parent.appendChild(el);
+}
+
+$('#gradientID').click(function(){
+   tempAlert('Copied!', 1000, 'copyGradient');
+});
+
+$('#idContainerOne').click(function(){
+   tempAlert('Copied!', 1000, 'copyOne')
+});
+
+$('#idContainerTwo').click(function(){
+   tempAlert('Copied!', 1000, 'copyTwo')
+});
+
+$('#idContainerThree').click(function(){
+   tempAlert('Copied!', 1000, 'copyThree')
+});
+
 var currentColor = ''
 var direction = ''
 var colorOneID = ''

@@ -2,14 +2,19 @@ body, html {
     height: 100%;
     margin: 0;
     overflow: hidden;
+    font-family: 'Oswald', sans-serif;
+}
+
+.cursive {
+    font-family: 'Charm', cursive;
 }
 
 .dropdown-menu {
     background-color: rgba(192, 29, 29, 0.767);   
     width: 200px;
-    border-bottom: 4px solid rgb(134, 26, 26);
-    border-right: 4px solid rgb(134, 26, 26);
-    border-left: 4px solid rgb(134, 26, 26);
+    border-bottom: 4px solid rgb(179, 28, 28, 1);
+    border-right: 4px solid rgb(179, 28, 28, 1);
+    border-left: 4px solid rgb(179, 28, 28, 1);
 }
 
 .dropdown-menu .show {
@@ -140,4 +145,20 @@ input:focus {outline: none; }
     right: 30px;
     border: none;
     background-color: rgba(192, 29, 29, 0);   
+}
+
+
+@media screen and (max-width: 1024px) { 
+    .dropdown-menu, #codeDropdown {
+        width: 100%;
+    }
+
+    .slash {
+        position: relative;
+        top: 8px;
+        right: 36px;
+        font-size: 2rem;
+        color: white;
+    }
+
 }
