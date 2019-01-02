@@ -1,5 +1,5 @@
 var colors = []
-
+// Prevent from closing dropdown-menu when clicking on it
 $('#settings').on('click', '.dropdown-menu', function (e) {
     e.stopPropagation();
 });
@@ -8,20 +8,21 @@ $('#code').on('click', '.dropdown-menu', function (e) {
     e.stopPropagation();
 });
 
-
-function tempAlert(msg,duration,id) {
+// Set up the ability to flash a message on screen
+function tempAlert(msg, duration, id) {
     var parent = document.getElementById(id)
-    var el = document.createElement("span");
-    el.setAttribute("style","position:relative;bottom:15px;");
-    el.innerHTML = msg;
+    var flashCopy = document.createElement("span");
+    flashCopy.setAttribute("style","position:relative;bottom:8px;");
+    flashCopy.innerHTML = msg;
 
     setTimeout(function(){
-        el.parentNode.removeChild(el);
+        flashCopy.parentNode.removeChild(flashCopy);
     }, duration);
 
-    parent.appendChild(el);
+    parent.appendChild(flashCopy);
 }
 
+// Flash 'Copied!' when color ids/css is clicked.
 $('#gradientID').click(function(){
    tempAlert('Copied!', 1000, 'copyGradient');
 });
@@ -45,7 +46,7 @@ var colorTwoID = ''
 var colorThreeID = ''
 // Custom Gradient
 
-
+// Change the color display circle to current colors
 $('#colorOne').change(function(){
     $('#colorWrapperOne').css('background', this.value);
     colorOneID = this.value;
@@ -66,40 +67,44 @@ $('#colorThree').change(function(){
     return colorThreeID
 });
 
+// Allow user to select a direction
 $('#direction').change(function(){
     if( $(this).val() === 'angle'){
         $('#angleBox').append('<input id="myInput" class="text-center" type="number" />').css('color', 'black');
         $('#myInput').change(function(){
             direction = this.value+'deg'
         });
-    }else{
+    } else{
         $('#myInput').remove();
-    direction = 'to '+this.value
-    return direction
+        direction = 'to '+this.value
+        return direction
     }
 });
 
-// Disable color
+// Disable colors, showing a cross out circle depending on color amount
+var toggleCancel = 'fas fa-ban slash'
 
 $('#numOfColors').change(function(){
     if($('#numOfColors').val() === '1') {
-        $('#colorOneCancel').removeClass('fas fa-ban slash');
-        $('#colorTwoCancel').addClass('fas fa-ban slash');
-        $('#colorThreeCancel').addClass('fas fa-ban slash');
+        $('#colorOneCancel').removeClass(toggleCancel);
+        $('#colorTwoCancel').addClass(toggleCancel);
+        $('#colorThreeCancel').addClass(toggleCancel);
         $('#addPadding').removeClass('pt-4')
         $('#addPadding').removeClass('mt-2')
     }
+
     if($('#numOfColors').val() === '2') {
-        $('#colorOneCancel').removeClass('fas fa-ban slash');
-        $('#colorTwoCancel').removeClass('fas fa-ban slash');
-        $('#colorThreeCancel').addClass('fas fa-ban slash');
+        $('#colorOneCancel').removeClass(toggleCancel);
+        $('#colorTwoCancel').removeClass(toggleCancel);
+        $('#colorThreeCancel').addClass(toggleCancel);
         $('#addPadding').removeClass('pt-4')
         $('#addPadding').removeClass('mt-2')
     }
+
     if($('#numOfColors').val() === '3') {
-        $('#colorOneCancel').removeClass('fas fa-ban slash');
-        $('#colorTwoCancel').removeClass('fas fa-ban slash');
-        $('#colorThreeCancel').removeClass('fas fa-ban slash');
+        $('#colorOneCancel').removeClass(toggleCancel);
+        $('#colorTwoCancel').removeClass(toggleCancel);
+        $('#colorThreeCancel').removeClass(toggleCancel);
         $('#addPadding').addClass('pt-4')
         $('#addPadding').addClass('mt-2')
     }
@@ -107,11 +112,14 @@ $('#numOfColors').change(function(){
 
 
 var link = ''
+// Update the display to show custom color. 
 $('#updateDisplay').click(function(){
+    // If not direction is selected, flash a error.
     if(direction === '' && $('#numOfColors').val() !== '1'){
-       console.log('direction is empty');
+       tempAlert('Select a direciton', 1000, 'addPadding')
     } 
 
+    // If color is changed from black, set it to black. Value is undefined unless changed, so we must manually set it.
     if(colorOneID.length === 0) {
         colorOneID = '#000000';
     }
@@ -123,6 +131,8 @@ $('#updateDisplay').click(function(){
     if(colorThreeID.length === 0) {
         colorThreeID = '#000000';
     }
+
+    // Display colors, showing if there are any cancelled out.
 
     if($('#numOfColors').val() === '1') {
         $('#display').css('background', colorOneID);
@@ -189,11 +199,11 @@ var angleDeg = ''
 var data = ''
 var track = -1
 var firstColor = 1
+
+// Generate a random color
 $('#next').click(function(){
 
-    console.log('first: ' + firstColor)
     if(track + 1 === colors.length || firstColor === 1) {
-        console.log('adding')
         track++
         var direct = Direction()
         var one = randomHexColor()
@@ -218,6 +228,7 @@ $('#next').click(function(){
         $('#idContainerTwo').text('')
         $('#idWrapperTwo').removeClass('circle')
     
+        // Store colors into local session and push it into an object 
         colors.push({
             id: storedLink,
             first: oneToString,
@@ -230,10 +241,7 @@ $('#next').click(function(){
     } 
     
     if (track + 1 < colors.length){
-        console.log('Shifting instead of adding')
-        console.log(track)
         track++
-        console.log('next track ' + track)
         $('#display').css({
             background: JSON.parse(sessionStorage.getItem("colors"))[track].id
         })
@@ -252,18 +260,16 @@ $('#next').click(function(){
 
 });
 
+
+// Back track between previous randomly generated colors
 $('#back').click(function(){
     if(track === 0 || firstColor === 1) {
-        console.log('at the start')
     } else {
-        console.log(track)
         track--
-        console.log('back track ' +track)
         $('#display').css({
             background: JSON.parse(sessionStorage.getItem("colors"))[track].id
         })
     
-        
         $('#gradientID').text(JSON.parse(sessionStorage.getItem("colors"))[track].id);
         $('#idContainerOne').text(JSON.parse(sessionStorage.getItem("colors"))[track].first)
         $('#idWrapperOne').addClass('circle')
@@ -274,10 +280,9 @@ $('#back').click(function(){
         $('#idWrapperThree').css('background', JSON.parse(sessionStorage.getItem("colors"))[track].second)
         return track
     }
-
-
-
 });
+
+
 
 function customGradient(numOfColors) {
     var totalColors = [];
@@ -286,6 +291,8 @@ function customGradient(numOfColors) {
     }
 }
 
+
+// Choose a random direction
 function Direction(){
     var i = Math.floor(Math.random() * 5)
     if(i === 4){
@@ -314,10 +321,14 @@ function Direction(){
     return chosenDirection
 }
 
+
+// Create a random hexColor
 function randomHexColor(){
     return "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
 } 
 
+
+// Create a random RGB color
 function randomColor(){
     //pick a "red" from 0 - 255
     var r = Math.floor(Math.random() * 256);
@@ -329,13 +340,12 @@ function randomColor(){
     return "rgb(" + r + ", " + g + ", " + b + ")";
 }
 
-
+// Allow copying of code when clicked.
 const wholeID = document.getElementById('gradientID');
 
 wholeID.addEventListener('click', async () => {
   await navigator.clipboard.writeText(wholeID.textContent);
   const y = await navigator.clipboard.readText();
-  console.log(y);  
 });
 
 const firstID = document.getElementById('idContainerOne');
@@ -343,7 +353,6 @@ const firstID = document.getElementById('idContainerOne');
 firstID.addEventListener('click', async () => {
   await navigator.clipboard.writeText(firstID.textContent);
   const y = await navigator.clipboard.readText();
-  console.log(y);  
 });
 
 const secondID = document.getElementById('idContainerTwo');
@@ -351,7 +360,6 @@ const secondID = document.getElementById('idContainerTwo');
 secondID.addEventListener('click', async () => {
   await navigator.clipboard.writeText(secondID.textContent);
   const y = await navigator.clipboard.readText();
-  console.log(y);  
 });
 
 const thirdID = document.getElementById('idContainerThree');
@@ -359,7 +367,6 @@ const thirdID = document.getElementById('idContainerThree');
 thirdID.addEventListener('click', async () => {
   await navigator.clipboard.writeText(thirdID.textContent);
   const y = await navigator.clipboard.readText();
-  console.log(y);  
 });
 
 
