@@ -161,4 +161,13 @@ input:focus {outline: none; }
         color: white;
     }
 
+    #numOfColorsText {
+        text-align: center;
+    }
+    
+    #numOfColors {
+        text-align: center;
+    }
+    
+
 }
